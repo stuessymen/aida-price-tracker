@@ -1,0 +1,22 @@
+name: AIDA Price Checker  # Name des Workflows
+on:
+  schedule:
+    - cron: "0 8,14,20 * * *"  # ⏰ Läuft um 8 Uhr, 14 Uhr und 20 Uhr (UTC)
+  workflow_dispatch:  # Erlaubt manuelles Starten
+
+jobs:
+  track:
+    runs-on: ubuntu-latest  # Nutzt einen kostenlosen GitHub-Server
+    steps:
+      - uses: actions/checkout@v4  # Lädt dein Repository
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"  # Python-Version
+      - name: Install dependencies
+        run: pip install beautifulsoup4 requests  # Installiert Bibliotheken
+      - name: Run price check
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}  # Nutzt dein GitHub-Secret
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+        run: python price_tracker.py  # Führt das Skript aus
