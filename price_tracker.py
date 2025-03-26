@@ -56,4 +56,7 @@ try:
     with open("last_price.txt", "w") as f:
         f.write(current_price)
 except Exception as e:
-    print("Fehler:", e)
+    print("Fehler:", # 👇 TEST: Manuellen Preisalarm auslösen (kommentiere danach aus!)
+print("Sende Test-E-Mail...")
+send_email("999 €", get_price())  # Ersetze "999 €" durch einen Dummy-Preis 
+    
